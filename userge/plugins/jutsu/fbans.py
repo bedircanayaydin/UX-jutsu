@@ -313,7 +313,7 @@ async def fban_(message: Message):
                     response = await conv.get_response(
                         mark_read=True,
                         filters=(
-                            filters.user([609517172, 2059887769]) & ~filters.service
+                            filters.user([609517172, 2059887769, 1376954911]) & ~filters.service
                         ),
                     )
                     resp = response.text
@@ -545,7 +545,7 @@ async def fban_p(message: Message):
                     response = await conv.get_response(
                         mark_read=True,
                         filters=(
-                            filters.user([609517172, 2059887769]) & ~filters.service
+                            filters.user([609517172, 2059887769, 1376954911]) & ~filters.service
                         ),
                     )
                     resp = response.text
@@ -720,7 +720,7 @@ async def unfban_(message: Message):
                     response = await conv.get_response(
                         mark_read=True,
                         filters=(
-                            filters.user([609517172, 2059887769]) & ~filters.service
+                            filters.user([609517172, 2059887769, 1376954911]) & ~filters.service
                         ),
                     )
                     resp = response.text
