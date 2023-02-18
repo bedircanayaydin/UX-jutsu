@@ -10,11 +10,11 @@ from pyrogram.errors import UsernameInvalid
     },
 )
 async def jc(message: Message):
-    reply = message.reply_to_message.text
-    link = reply if reply else message.input_str
+    reply = message.reply_to_message
+    link = message.input_str or reply.text
     if not link:
         await message.edit(
-            "```Bruh, Without chat link, I can't Join...^_^```", del_in=3
+            "Bruh, Without chat link, I can't Join...^_^", del_in=3
         )
         return
     try:
@@ -22,6 +22,9 @@ async def jc(message: Message):
     except UsernameInvalid:
         link = link.split("/")[-1]
         await userge.join_chat(link)
+    except Exception as e:
+        if str(e).startswith("Telegram says: [400 Bad Request] - [400 INVITE_REQUEST_SENT]"):
+            return await message.reply("Join Request Sent.")
     return await message.reply("Joined")
 
 
@@ -38,11 +41,13 @@ async def clck(message: Message):
     button_name = message.input_str
     button = message.reply_to_message
     if not button:
-        await message.edit("Reply to a button -__-", del_in=5)
+        return await message.edit("Reply to a button -_-", del_in=5)
     try:
         if button_name:
             await button.click(button_name)
         else:
             await button.click(0)
+    except ValueError:
+        return await message.reply("Button doesn't exists")
     except TimeoutError:
         return
